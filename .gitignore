@@ -1,0 +1,13 @@
+*.env
+*.config
+.idea
+.dist
+.vscode
+
+venv
+node_modules
+build/
+dist/
+data/
+.env
+.env.container.webserver
