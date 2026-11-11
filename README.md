@@ -40,18 +40,3 @@ JSON boxes validate, format and indent client-side.
 
 Requires `swiftssr@^1.0.3` (the release matching its README: `Fragment`, `htmlFor`, `SendHTML`, branded nodes).
 Attribute names in the typed JSX are lowercase where HTML is (`autocomplete`, `colspan`, `autofocus`).
-
-## Docker
-
-```bash
-cp .env.example .env          # set SECRET, ROOT_USERNAME, ROOT_PASSWORD (+ HOST_PORT, COOKIE_SECURE, TRUST_PROXY if needed)
-docker compose up -d --build
-```
-
-- The SQLite database lives in the `mongo-admin-data` named volume mounted at `/data` (`SQLITE_PATH=/data/data.sqlite`).
-  Back it up with e.g. `docker run --rm -v mongo-admin-data:/data -v "$PWD":/b alpine tar czf /b/backup.tgz /data`.
-- `docker compose down` keeps the data; `docker compose down -v` deletes it.
-- The container runs as the unprivileged `node` user and has a healthcheck on `/login`.
-- To reach a MongoDB on the Docker host, use `host.docker.internal` in the connection URI and enable the `extra_hosts`
-  lines in `docker-compose.yml` (Linux). For a MongoDB container, put both on the same compose network and use its service name.
-- Put a TLS reverse proxy in front, then set `COOKIE_SECURE=true` and `TRUST_PROXY=true`.
